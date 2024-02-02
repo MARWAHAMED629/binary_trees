@@ -49,29 +49,29 @@ size_t _tree_size(const binary_tree_t *tree)
 }
 
 /**
- * _preorder - goes through a binary tree using pre-order traversal
+ * _preorder - goes through a binary tree using pre-order traversal.
  * @tree: pointer to the root node of the tree to traverse
- * @node: will be last note in traverse
- * @height: height of tree
+ * @node: it will be last note in traverse
+ * @h: the height of tree
  *
- * Return: No Return
+ * Return: No Thing
  */
-void _preorder(heap_t *tree, heap_t **node, size_t height)
+void _preorder(heap_t *tree, heap_t **node, size_t h)
 {
 	if (!tree)
 		return;
 
-	if (!height)
+	if (!h)
 		*node = tree;
-	height--;
+	h--;
 
-	_preorder(tree->left, node, height);
-	_preorder(tree->right, node, height);
+	_preorder(tree->left, node, h);
+	_preorder(tree->right, node, h);
 }
 
 /**
- * heapi_fy - heapifies max binary heap
- * @root: pointer to binary heap
+ * heapi_fy - heapifies the  max binary heap
+ * @root: the pointer to binary heap
  */
 void heapi_fy(heap_t *root)
 {
@@ -113,7 +113,7 @@ void heapi_fy(heap_t *root)
 int heap_extract(heap_t **root)
 {
 	int value;
-	heap_t *heap_r, *node;
+	heap_t *heap_r, *nd;
 
 	if (!root || !*root)
 		return (0);
@@ -126,14 +126,14 @@ int heap_extract(heap_t **root)
 		return (value);
 	}
 
-	_preorder(heap_r, &node, binary_tree_height(heap_r));
+	_preorder(heap_r, &nd, binary_tree_height(heap_r));
 
-	heap_r->n = node->n;
-	if (node->parent->right)
-		node->parent->right = NULL;
+	heap_r->n = nd->n;
+	if (nd->parent->right)
+		nd->parent->right = NULL;
 	else
-		node->parent->left = NULL;
-	free(node);
+		nd->parent->left = NULL;
+	free(nd);
 	heapi_fy(heap_r);
 	*root = heap_r;
 	return (value);
